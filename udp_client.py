@@ -21,19 +21,27 @@ def get_file_size(file_name: str) -> int:
 
 def send_file(filename: str):
     # get the file size in bytes
-    # TODO: section 2 step 2 in README.md file
+    file_size = get_file_size(filename)
+
+
 
     # convert the file size to an 8-byte byte string using big endian
-    # TODO: section 2 step 3 in README.md file
+    size = (BUFFER_SIZE).to_bytes(file_size, byteorder='big')
+
+
 
     # create a SHA256 object to generate hash of file
+    file_hash = hashlib.sha256()
     # TODO: section 2 step 4 in README.md file
+
 
     # create a UDP socket
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
     try:
         # send the file size in the first 8-bytes followed by the bytes
+
+
         # for the file name to server at (IP, PORT)
         # TODO: section 2 step 6 in README.md file
 

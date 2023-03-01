@@ -35,7 +35,12 @@ def start_server():
     try:
         while True:
             # TODO: section 1 step 2 in README.md file
+            message, address = server_socket.recvfrom(8)
+
+
             # expecting an 8-byte byte string for file size followed by file name
+            file_size = int.from_bytes()
+            file_name = get_file_info()
             # TODO: section 1 step 3 in README.md file
             # TODO: section 1 step 4 in README.md file
             upload_file(server_socket, file_name, file_size)
