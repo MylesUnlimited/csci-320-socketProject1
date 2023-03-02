@@ -1,11 +1,11 @@
 import socket
-import os
+import os.path as path
 import hashlib  # needed to verify file hash
 
 
 IP = '127.0.0.1'  # change to the IP address of the server
 PORT = 12000  # change to a desired port number
-BUFFER_SIZE = 1024  # change to a desired buffer size
+BUFFER_SIZE = 256 # change to a desired buffer size
 
 
 def get_file_info(data: bytes) -> (str, int):
@@ -22,18 +22,21 @@ def upload_file(server_socket: socket, file_name: str, file_size: int):
 
         # TODO: section 1 step 7a - 7e in README.md file
         checking = True
+        bytes_received = 0
         while checking:
             chunk, address = server_socket.recvfrom(BUFFER_SIZE)
             end = "Working"
-            if chunk == b'finished':
-                end = "finished"
-                break
+            bytes_received += len(chunk)
 
-            print(chunk)
+
+            print(chunk,"pain")
+            print(path.getsize(file_name))
             file.write(chunk)
             file_verify.update(chunk)
             server_socket.sendto(b'received', address)
             print(end)
+            if bytes_received ==file_size:
+                break
 
 
     # get hash from client to verify

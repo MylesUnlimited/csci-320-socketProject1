@@ -6,7 +6,7 @@ import os.path as path  # needed to get size of file in bytes
 
 IP = '127.0.0.1'  # change to the IP address of the server
 PORT = 12000  # change to a desired port number
-BUFFER_SIZE = 1024  # change to a desired buffer size
+BUFFER_SIZE = 256  # change to a desired buffer size
 
 
 def get_file_size(file_name: str) -> int:
@@ -72,7 +72,6 @@ def send_file(filename: str):
                     if reply2 != b'received':
                         raise Exception('Bad server response - was not received')
                 elif len(chunk) ==0:
-                    client_socket.sendto(b'finished',address)
                     print("done")
                     reading = False
 
@@ -80,6 +79,7 @@ def send_file(filename: str):
         # received correctly.
         # TODO: section 2 step 9 in README.md file
         calculated_hash = (file_hash.digest())
+
         client_socket.sendto(calculated_hash,(IP,PORT))
 
         # TODO: section 2 steps 10 in README.md file
